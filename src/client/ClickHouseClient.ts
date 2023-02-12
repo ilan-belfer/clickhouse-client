@@ -313,6 +313,7 @@ export class ClickHouseClient {
         query: string,
         params?: Record<string, string | number>
     ) {
+        console.log('in queryPromise')
         this._validateQuery<T>(query);
 
         return this._queryPromise<T>(query, params);
