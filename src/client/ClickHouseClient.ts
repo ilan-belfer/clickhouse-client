@@ -140,7 +140,6 @@ export class ClickHouseClient {
         }
 
         const params = new URLSearchParams({
-            query,
             database: this.options.database,
             ...Object.fromEntries(Object.entries(queryParams).map(([key, value]) => [`param_${key}`, value]))
         });
@@ -154,6 +153,7 @@ export class ClickHouseClient {
             params,
             responseType: 'stream',
             method: 'POST',
+            data: query,
             auth: {
                 username: this.options.username,
                 password: this.options.password
@@ -313,7 +313,6 @@ export class ClickHouseClient {
         query: string,
         params?: Record<string, string | number>
     ) {
-        console.log('in queryPromise')
         this._validateQuery<T>(query);
 
         return this._queryPromise<T>(query, params);
